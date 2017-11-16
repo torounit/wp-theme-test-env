@@ -71,8 +71,11 @@ RUN sudo service mysql start && \
     --title="WP Theme Test Environment" \
     --admin_user="admin" \
     --admin_password="admin" \
-    --admin_email="admin@example.com" && \
-    wp plugin install wordpress-importer --activate
+    --admin_email="admin@example.com"
+
+# Install Importer.
+RUN sudo service mysql start && \
+    wp plugin install https://github.com/WordPress/wordpress-importer/archive/master.zip --activate
 
 # Import Theme Unit Test.
 RUN sudo service mysql start && \
