@@ -72,7 +72,7 @@ RUN sudo service mysql start && \
     --admin_user="admin" \
     --admin_password="admin" \
     --admin_email="admin@example.com" && \
-    wp plugin install https://github.com/WordPress/wordpress-importer/archive/master.zip --activate
+    wp plugin install wordpress-importer --activate
 
 # Import Theme Unit Test.
 RUN sudo service mysql start && \
