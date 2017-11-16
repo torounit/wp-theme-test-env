@@ -64,7 +64,7 @@ RUN curl -s https://wordpress.org/latest.tar.gz > /tmp/wordpress.tar.gz
 RUN tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C ./
 
 # Setup WordPress
-RUN bash ${WORK_DIR}/wordpress.sh
+RUN bash /wordpress.sh
 
 # supervisord
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
