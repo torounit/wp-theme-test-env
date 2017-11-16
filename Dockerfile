@@ -72,20 +72,11 @@ RUN sudo service mysql start && \
     --admin_user="admin" \
     --admin_password="admin" \
     --admin_email="admin@example.com" && \
-    wp plugin install wordpress-importer --activate
-
-# Import Theme Unit Test.
-RUN sudo service mysql start && \
+    wp plugin install wordpress-importer --activate  && \
     curl https://raw.githubusercontent.com/WPTRT/theme-unit-test/master/themeunittestdata.wordpress.xml > /tmp/themeunittestdata.wordpress.xml && \
-    wp import /tmp/themeunittestdata.wordpress.xml --authors=create
-
-# Import Theme Unit Test ja.
-RUN sudo service mysql start && \
+    wp import /tmp/themeunittestdata.wordpress.xml --authors=create && \
     curl https://raw.githubusercontent.com/jawordpressorg/theme-test-data-ja/master/wordpress-theme-test-date-ja.xml > /tmp/wordpress-theme-test-date-ja.xml && \
-    wp import /tmp/wordpress-theme-test-date-ja.xml --authors=create
-
-# Update options.
-RUN sudo service mysql start && \
+    wp import /tmp/wordpress-theme-test-date-ja.xml --authors=create && \
     wp rewrite structure "/%postname%/" && \
     wp option update posts_per_page 5 && \
     wp option update page_comments 1 && \
