@@ -63,27 +63,8 @@ WORKDIR /var/www/wordpress
 RUN curl -s https://wordpress.org/latest.tar.gz > /tmp/wordpress.tar.gz
 RUN tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C ./
 
-# Install WordPress.
-RUN sudo service mysql start && \
-    wp config create --dbname=wordpress --dbuser=root --dbpass=root && \
-    wp core install \
-    --url=http://localhost \
-    --title="WP Theme Test Environment" \
-    --admin_user="admin" \
-    --admin_password="admin" \
-    --admin_email="admin@example.com" && \
-    wp plugin install wordpress-importer --activate  && \
-    curl https://raw.githubusercontent.com/WPTRT/theme-unit-test/master/themeunittestdata.wordpress.xml > /tmp/themeunittestdata.wordpress.xml && \
-    wp import /tmp/themeunittestdata.wordpress.xml --authors=create && \
-    curl https://raw.githubusercontent.com/jawordpressorg/theme-test-data-ja/master/wordpress-theme-test-date-ja.xml > /tmp/wordpress-theme-test-date-ja.xml && \
-    wp import /tmp/wordpress-theme-test-date-ja.xml --authors=create && \
-    wp rewrite structure "/%postname%/" && \
-    wp option update posts_per_page 5 && \
-    wp option update page_comments 1 && \
-    wp option update comments_per_page 5 && \
-    wp option update show_on_front page && \
-    wp option update page_on_front 701  && \
-    wp option update page_for_posts 703
+# Setup WordPress
+RUN bash ./wordpress.sh
 
 # supervisord
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
