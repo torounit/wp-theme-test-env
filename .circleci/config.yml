@@ -42,5 +42,13 @@ jobs:
                 docker tag app "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"
                 docker push "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"
               fi
-
             fi
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build:
+        filters:
+          tags:
+            only: /.*/
