@@ -73,7 +73,7 @@ RUN sudo find /var/lib/mysql -type f -exec touch {} \; && \
     --admin_user="admin" \
     --admin_password="admin" \
     --admin_email="admin@example.com" && \
-    wp plugin install https://github.com/WordPress/wordpress-importer --activate
+    wp plugin install https://github.com/WordPress/wordpress-importer/archive/master.zip --activate
 
 # Import Theme Unit Test.
 RUN sudo find /var/lib/mysql -type f -exec touch {} \; && \
