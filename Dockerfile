@@ -9,10 +9,8 @@ RUN apt-get install -y sudo unzip curl wget git supervisor
 
 # Install Chrome and Node.js.
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 RUN apt-get update
-RUN apt-get install -y google-chrome-stable
+RUN apt-get install -y chromium-browser
 RUN apt-get install -y nodejs
 
 # Install Noto Sans.
