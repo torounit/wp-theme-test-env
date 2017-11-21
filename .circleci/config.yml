@@ -43,44 +43,12 @@ jobs:
                 docker push "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"
               fi
             fi
-  release:
-    working_directory: /app
-    docker:
-      - image: docker:17.10.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/app.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/app.tar | true
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build --cache-from=app -t app .
-      - deploy:
-          name: Push application Docker image
-          command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            if [ "${CIRCLE_TAG}" ]; then
-              docker tag app "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"
-              docker push "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}"
-            fi
 
 workflows:
   version: 2
   build_release:
     jobs:
-      - build
-      - release:
-          requires:
-            - build
+      - build:
           filters:
             tags:
               only: /.*/
