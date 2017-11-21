@@ -84,3 +84,7 @@ workflows:
           filters:
             tags:
               only: /.*/
+
+deployment:
+  release:
+    tag: /.*/
