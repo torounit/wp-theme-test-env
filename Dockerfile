@@ -11,6 +11,7 @@ RUN apt-get install -y sudo unzip curl wget git supervisor
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update
 RUN apt-get install -y chromium-browser
+ENV CHROME_PATH /usr/bin/chromium-browser
 RUN apt-get install -y nodejs
 
 # Install Noto Sans.
